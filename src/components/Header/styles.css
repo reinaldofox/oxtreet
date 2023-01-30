@@ -1,0 +1,26 @@
+.head_style{
+  display: flex;
+  justify-content: flex-start;
+  background-color: #c27664;
+  /* background-color: #519872; */
+  align-items: flex-start;
+  margin: auto;
+  height: 50px;
+  border-radius: 12px;
+}
+
+.logo{
+  width: 500px;
+  height: 50px;
+  line-height: 50px;
+  font-size: 18px;
+  text-align: center;
+  color: #ffffff;
+  font-weight: 900;
+  margin: auto;
+}
+
+.logo span{
+  display: inline-flexbox;
+  margin-left: 10px;
+}

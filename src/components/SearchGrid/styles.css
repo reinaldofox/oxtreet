@@ -1,0 +1,33 @@
+.grid_container {
+  display: grid;
+  grid-template-columns: auto auto auto auto auto;  
+}
+
+.grid_container > div {
+  padding: 8px;
+}
+
+.item6 {
+  grid-column: 1 / span 5;
+}
+
+.ox_button{
+  background-color: #678983;
+  padding: 7px 15px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  color: #fff;
+  font-weight: 900;
+  transition: all .4s;
+}
+
+.ox_button:hover{
+  background-color: #519872;
+}
+
+.oxdatalist{
+  width: 400px;
+  font-size: 16px;
+  background-color: honeydew
+}

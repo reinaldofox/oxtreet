@@ -1,0 +1,49 @@
+.table_striped>tbody{
+  color: #494949
+}
+
+.table_striped>tbody>tr:nth-of-type(odd)>* {
+  background-color: #e0e0e0
+}
+
+.icon_align{
+  display: flex;
+  align-items: center;
+  justify-content: center
+}
+
+.box_item_modal{  
+  background-color: #e1dac1;
+  padding: 20px;
+  color: #3f4856;
+  border-radius: 8px;
+  /* width: fit-content; 
+  margin: 0 auto; */
+}
+
+.fake_button {
+  padding: 2px;
+  background: none;
+  border: none;
+}
+
+.mark_to_delete {
+  text-decoration: line-through;
+  color: #f30e0e;
+  background-color: #faa8a8;
+}
+
+.mark_to_delete:hover {
+  text-decoration: line-through;
+  color: #f30e0e;
+  background-color: #faa8a8;
+}
+
+table tr:hover{
+  background-color: antiquewhite
+}
+
+.delete_effect {
+  opacity:0;
+  transition:1s;
+}
