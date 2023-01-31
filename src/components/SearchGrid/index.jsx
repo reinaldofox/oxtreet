@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import Input, { Select } from '../Input'
+import './styles.css'
 import { BiSearch } from 'react-icons/bi'
 import { API_URL } from '../Messages.module'
 
@@ -24,8 +25,7 @@ const  SearchGrid = () => {
     const searchParams = {modelo, tipo, tamanho, precoVenda, cor, detalhes}
     await fetch(`${API_URL}/produto/search`, {body: searchParams})
     .then(res => res.json())
-    // .then(data => setProdutos(data))
-    .then(data => console.log(data))
+    .then(data => setProdutos(data))
     .catch(error => console.log(error.message))
   }
 

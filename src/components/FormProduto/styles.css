@@ -1,0 +1,26 @@
+.flexcontainer {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%
+}
+
+.formgroup {
+  width: 360px;    
+  padding: 6px;
+}
+
+.tiny {
+  width: 160px
+}
+
+.small {
+  width: 250px
+}
+
+.mid {
+  width: 450px
+}
+
+.large {
+  width: 750px
+}

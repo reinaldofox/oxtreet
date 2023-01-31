@@ -11,7 +11,7 @@ function App() {
       <Header />
       <Outlet />{/* SPA - No outlet é inserido o conteudo dinamico da pagina */}
       <hr />
-      <h5>Oxtreet BH - Representante Comercial</h5>
+      <small style={{color: '#50577afc'}}>Oxtreet BH - Representante Comercial</small>
       {/* <Login /> */}
       {/* <h3> Cadastrar produto </h3>
       <FormProduto />

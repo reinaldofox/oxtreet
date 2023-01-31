@@ -1,10 +1,11 @@
-.table_striped>tbody{
-  color: #494949
+.table {
+  color: #50577afc;
 }
 
-.table_striped>tbody>tr:nth-of-type(odd)>* {
-  background-color: #e0e0e0
+.table_striped>tbody{
+  color: #50577afc
 }
+
 
 .icon_align{
   display: flex;
@@ -39,7 +40,7 @@
   background-color: #faa8a8;
 }
 
-table tr:hover{
+table>tbody>tr:hover{
   background-color: antiquewhite
 }
 

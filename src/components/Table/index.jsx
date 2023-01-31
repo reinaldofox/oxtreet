@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react'
 import { Table, Form, Modal, Button, Popover, OverlayTrigger } from 'react-bootstrap'
 import './styles.css'
 import { IoBagCheckOutline, IoBagAddOutline } from 'react-icons/io5'
-import { BiTrash,  BiLike, BiEdit } from 'react-icons/bi'
+import { BiTrash, BiEdit } from 'react-icons/bi'
+import { CgCheckR } from 'react-icons/cg'
 import { MdOutlineCancel } from 'react-icons/md'
 import { Accordion }from 'react-bootstrap'
 import SearchGrid from '../SearchGrid/'
@@ -31,8 +32,13 @@ const OxTable = (props) => {
   }  
 
   const getProdutos = async () => {   
-    await fetch(`${API_URL}/produto/`)
-    // Sequelize upsert retorna true se foi criado ou false se foi atualizado
+    await fetch(`${API_URL}/produto/`, {
+      mode: 'cors', //cannot be 'no-cors'
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+    })
     .then(response => response.json())
     .then(data => setProdutos(data))
     .catch(error => console.log('TRATAR ESSE ERRO', error))
@@ -61,15 +67,21 @@ const OxTable = (props) => {
     hidePopover()
     console.log('retornou do modal') 
     await fetch(`${API_URL}/produto/${idExcluir}`, {method: 'DELETE'})
-    .then(response => response.json())
+    .then(() => {
+      console.log('produto removido')      
+      let tr = document.getElementById(`tr_${idExcluir}`)
+      setTimeout(() => {
+        tr?.remove();
+      }, 1500)
+      tr.classList.add('delete_effect')      
+    })
     //TODO - tratar esse retorno
-    .then(data => console.log('TRATAR essa exclusão'))
     .catch(error => console.log('ERRO ---------- ', error))
   }
 
   const hidePopover = () => {
-    // document.getElementById('popover-positioned-top')?.classList.remove('show')
-    // removeRowBackground(idExcluir)
+    document.getElementById('popover-positioned-top').style.display = 'none'
+    removeRowBackground(idExcluir)
   }
 
   const markRowToDelete = (id) => {
@@ -84,7 +96,7 @@ const OxTable = (props) => {
   const popoverTop = (
     <Popover id="popover-positioned-top" style={{padding: "8px"}}>
       <span>Confirma?</span> <br />
-      <BiLike title='Confirmar' onClick={ev => handleDelete()} size={24} className='icon' /> 
+      <CgCheckR title='Confirmar' onClick={ev => handleDelete()} size={24} className='icon' /> 
       <MdOutlineCancel title='Cancelar' onClick={hidePopover} size={24} className='icon' />
     </Popover>
   )
@@ -101,16 +113,16 @@ const OxTable = (props) => {
         </Accordion.Item>      
       </Accordion>
 
-      <Table id='tbl_produtos' reload={props.reload}>
+      <Table id='tbl_produtos'>
         <thead>
           <tr>
-            <th>Modelo</th>
-            <th>Tipo</th>
-            <th>Tamanho</th>
-            <th>Preço</th>
-            <th>Cor</th>
-            <th>Detalhes</th>
-            <th className='icon_align'>Ações</th>
+            <th><h6>Modelo</h6></th>
+            <th><h6>Tipo</h6></th>
+            <th><h6>Tamanho</h6></th>
+            <th><h6>Preço</h6></th>
+            <th><h6>Cor</h6></th>
+            <th><h6>Detalhes</h6></th>
+            <th className='icon_align'><h6>Ações</h6></th>
           </tr>
         </thead>
         <tbody>
