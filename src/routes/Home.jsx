@@ -2,9 +2,13 @@ import React from 'react'
 
 const Home = () => {
 
+  // const [clienteSelecionado, setClienteSelecionado] = useState({})
+  // const [clienteS, setClientes] = useState([])
+  // const [search, setSearch] = useState('second')
+
   return (
     <>
-      <h1>Home da aplicação</h1>
+      <h1>Pesquisar Cliente</h1>
     </>
   )
 }

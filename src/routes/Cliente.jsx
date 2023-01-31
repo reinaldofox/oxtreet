@@ -7,16 +7,18 @@ const Cliente = () => {
 
   const [show, setShow] = useState(false);
 
+  const handleShowModal = () => {
+    setShow(true)
+    document.body.style.filter = 'blur(2px)'
+  }
+
   return (
     <div className="App">
 
       <FormCliente />
 
-
-
-
       <h2>Modal Demo</h2>
-      <button className="btn btn-info btn-sm" onClick={() => setShow(true)}>Open Modal 1</button>
+      <button className="btn btn-info btn-sm" onClick={handleShowModal}>Open Modal 1</button>
       <hr />
       
       <ModalMessage
