@@ -1,13 +1,15 @@
 import React from 'react'
 import Navbar from '../Navbar'
 import './styles.css'
-import { BsShop } from 'react-icons/bs'
+import { ReactComponent as OxLogo } from '../../assets/img/oxtreet-logo.svg'
 
-const Header = () => {
+const Header = (props) => {  
   return (
-    <div className='head_style'>
-      <div className='logo'> <span> <BsShop size={30} /> </span> <span>Oxtreet BH - Gerenciamento</span> </div>
-      <Navbar />
+    <div className={ `head_style ${props.class}` }>
+      <OxLogo fill='#7286D3' className='oxlogo' />
+      {/* <img id="oxtreet-logo" className="logosvg" src={oxtreetlogo} title={'oxtreet bh'} alt={'oxtreet bh'}/> */}
+      <Navbar /> 
+      | a- a+
     </div>
   )
 }

@@ -6,11 +6,12 @@
   color: #50577afc
 }
 
-
 .icon_align{
   display: flex;
   align-items: center;
-  justify-content: center
+  justify-content: center;
+/*   margin: 0 1%; */
+/*   width: 20%; */
 }
 
 .box_item_modal{  
@@ -23,9 +24,13 @@
 }
 
 .fake_button {
-  padding: 2px;
+  padding: 2px 2%;
+  margin: 0;
   background: none;
   border: none;
+}
+.fake_button svg {
+  margin: 2px 2%;
 }
 
 .mark_to_delete {
@@ -40,11 +45,19 @@
   background-color: #faa8a8;
 }
 
-table>tbody>tr:hover{
-  background-color: antiquewhite
+table>tbody>tr:hover {
+  background-color: #e9e1c5;
+/*   background-color: #f5efb9; */
+  transition: all .3s linear;
 }
 
 .delete_effect {
   opacity:0;
   transition:1s;
+}
+
+@media (max-width: 910px){
+  col:nth-child(6) {
+    visibility: collapse;
+  } 
 }

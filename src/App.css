@@ -1,10 +1,15 @@
 .App {  
-  border: 1px #c5c7e4 solid;
-  border-radius: 15px;
-  margin: 20px auto;
+  /* border: 1px #c5c7e4 solid; */
+  border-radius: 8px;
+  margin: 0 auto;
   padding: 20px;
   width: 75%;
-  font-size: 14px;
-  background-color: rgba(255, 255, 255, 0.253);
-  box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+  min-height: 600px;
+  min-width: 600px;
+  background-color: #ffffff41;
+  /* box-shadow: #11111a1a 0px 8px 24px, #11111a1a 0px 16px 24px, #11111a1a 0px 24px 60px; */
+}
+
+input[type="radio"], input[type="checkbox"] {
+  cursor: pointer;
 }

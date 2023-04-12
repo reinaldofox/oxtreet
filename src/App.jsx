@@ -1,24 +1,57 @@
-import './App.css';
-// import FormProduto from './components/FormProduto'
-// import OxTable from './components/Table';
-// import Login from './components/Login'
 import { Outlet } from 'react-router-dom'
 import Header from './components/Header'
+import { useState, useRef, useEffect } from 'react'
+import Fetcher from './utils/Fetcher';
+import Messages from './utils/Messages';
+import './App.css';
 
 function App() {
+
+  const appRef = useRef()
+  const [small, setSmall] = useState(false)  
+
+  window.onscroll = () => {
+    setSmall(appRef.current.getBoundingClientRect().top < 50)
+  }
+
+  //  CARREGAR O LOCALSTORAGE NO REQUEST DE LOGIN, POIS AUQI TODA
+  // HORA QUE A PÁGINA MUDA O ESTADO/SE MOVE O METODO É EXUCUTADO
+  // DESNECESSARIAMENTE
+  // (async () => {
+  //   try {
+  //     const appvalues = await Fetcher.request('/app/load/', 'GET')
+  //     localStorage.setItem('appvalues', JSON.stringify(appvalues))   
+  //   } catch (error) {
+  //     console.error(error)
+  //     Messages.show('error')
+  //   }    
+  // })()
+
+  const loadAppValues = async () => {
+    try {
+      const appvalues = await Fetcher.request('/app/load/', 'GET')
+      localStorage.setItem('appvalues', JSON.stringify(appvalues))   
+    } catch (error) {
+      console.error(error)
+      Messages.show('error')
+    }    
+  }
+
+  useEffect(() => {
+    loadAppValues()
+  }, [])
+
   return (
-    <div className="App">
-      <Header />
-      <Outlet />{/* SPA - No outlet é inserido o conteudo dinamico da pagina */}
-      <hr />
-      <small style={{color: '#50577afc'}}>Oxtreet BH - Representante Comercial</small>
-      {/* <Login /> */}
-      {/* <h3> Cadastrar produto </h3>
-      <FormProduto />
-      <hr />
-      <h3> Estoque </h3>
-      <OxTable /> */}
-    </div>
+    <>
+      <div className='messages' id='messages' >        
+      </div>
+      <Header class={small ? 'small_header' : ''}/>
+      <div className="App" ref={appRef}>
+        <Outlet />{/* SPA - No outlet é inserido o conteudo dinamico da pagina */}
+        <hr />
+        <small style={{color: '#50577afc'}}>Oxtreet BH - Representante Comercial</small>
+      </div>
+    </>
   );
 }
 

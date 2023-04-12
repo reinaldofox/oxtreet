@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { Table, Form, Modal, Button, Popover, OverlayTrigger } from 'react-bootstrap'
 import './styles.css'
 import { IoBagCheckOutline, IoBagAddOutline } from 'react-icons/io5'
 import { BiTrash, BiEdit } from 'react-icons/bi'
 import { CgCheckR } from 'react-icons/cg'
 import { MdOutlineCancel } from 'react-icons/md'
-import { Accordion }from 'react-bootstrap'
-import SearchGrid from '../SearchGrid/'
 import { API_URL } from '../Messages.module'
+import Fetcher from '../../utils/Fetcher'
+import Messages from '../../utils/Messages'
 
 const OxTable = (props) => {
 
@@ -16,10 +16,9 @@ const OxTable = (props) => {
   const [produtoVenda, setProdutoVenda] = useState({})
   const [suggestions, setSuggestions] = useState([])
   const [nomeCliente, setNomeCliente] = useState('')
-
   const [showModalVenda, setShowModalVenda] = useState(false);
-
   const [idExcluir, setIdExcluir] = useState('')
+  const trRef = useRef(null)
 
   const handleClose = () => {
     setShowModalVenda(false);
@@ -31,25 +30,27 @@ const OxTable = (props) => {
     setProdutoVenda(produtos[index])
   }  
 
-  const getProdutos = async () => {   
-    await fetch(`${API_URL}/produto/`, {
-      mode: 'cors', //cannot be 'no-cors'
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-    })
-    .then(response => response.json())
-    .then(data => setProdutos(data))
-    .catch(error => console.log('TRATAR ESSE ERRO', error))
+  const loadProdutos = async () => {
+    try {
+      return await Fetcher.request('/produto/', 'GET')
+      .then(data => setProdutos(data))
+      .catch(error => Messages.show('error'))   
+    } catch (error) {
+      Messages.show('error')
+    }
   }
+
+  useEffect(() => {
+    loadProdutos()
+    // debugger;
+  }, [])
 
   const handleSuggestions = async (nome) => {
     setNomeCliente(nome)
     if (nome.length > 2) {
 
       let xhr = new XMLHttpRequest();
-      xhr.open('GET', `${API_URL}/cliente/search/?nomeCliente=${nomeCliente}`)
+      xhr.open('GET', `${API_URL}/cliente/search/?params=${nomeCliente}`)
       xhr.responseType = 'json'
       xhr.send()
       xhr.onload = () => {
@@ -60,8 +61,6 @@ const OxTable = (props) => {
     }
   }
 
-  useEffect(() => { getProdutos() }, [])
-
   const handleDelete = async () => {
     // setShowModalMessage(true)
     hidePopover()
@@ -69,11 +68,11 @@ const OxTable = (props) => {
     await fetch(`${API_URL}/produto/${idExcluir}`, {method: 'DELETE'})
     .then(() => {
       console.log('produto removido')      
-      let tr = document.getElementById(`tr_${idExcluir}`)
+      // let tr = document.getElementById(`tr_${idExcluir}`)
       setTimeout(() => {
-        tr?.remove();
+        trRef.current.remove();
       }, 1500)
-      tr.classList.add('delete_effect')      
+      trRef.current.classList.add('delete_effect')      
     })
     //TODO - tratar esse retorno
     .catch(error => console.log('ERRO ---------- ', error))
@@ -86,11 +85,12 @@ const OxTable = (props) => {
 
   const markRowToDelete = (id) => {
     setIdExcluir(id)
-    document.getElementById('tr_'+id)?.classList.add('mark_to_delete')
+    // document.getElementById('tr_'+id)?.classList.add('mark_to_delete')
+    trRef.current.classList.add('mark_to_delete')
   }
 
   const removeRowBackground = (id) => {
-    document.getElementById('tr_'+id)?.classList.remove('mark_to_delete')
+    trRef.current.classList.remove('mark_to_delete')
   }
 
   const popoverTop = (
@@ -103,17 +103,8 @@ const OxTable = (props) => {
 
   return(
     <> 
-
-      <Accordion className='mt-4 mb-4'>
-        <Accordion.Item eventKey="0">
-          <Accordion.Header>Pesquisar Item</Accordion.Header>
-          <Accordion.Body>
-            <SearchGrid />
-          </Accordion.Body>
-        </Accordion.Item>      
-      </Accordion>
-
       <Table id='tbl_produtos'>
+        <colgroup><col /><col /><col /><col /><col /><col /><col /></colgroup>
         <thead>
           <tr>
             <th><h6>Modelo</h6></th>
@@ -127,15 +118,15 @@ const OxTable = (props) => {
         </thead>
         <tbody>
           {produtos.map((produto, index) => (
-            <tr key={index} id={`tr_${produto.id}`}>
+            <tr key={index} id={`tr_${produto.id}`} ref={trRef}>
               <td>{produto.modelo}</td>
               <td>{produto.tipo}</td>
               <td>{produto.tamanho}</td>
               <td>{produto.precoVenda}</td>
               <td>{produto.cor}</td>
-              <td>{produto.detalhes}</td> 
+              <td><small>{produto.info}</small></td>
               <td>
-                <span className='icon_align'>
+                <div className='icon_align'>
                   <button className='fake_button' title="Vender este item" onClick={ev => handleShow(index)} >
                     <IoBagCheckOutline size={24} className='icon' />
                   </button>
@@ -150,14 +141,14 @@ const OxTable = (props) => {
                       <BiTrash size={24} className='icon' />
                     </button> 
                   </OverlayTrigger>
-                </span>
+                </div>
               </td>
-            </tr> 
+            </tr>       
           ))}
         </tbody>
       </Table> 
   
-      <Modal show={showModalVenda} onHide={handleClose} size="lg" centered>
+      <Modal show={showModalVenda} onHide={handleClose} size="lg" centered backdrop="static">
         <Modal.Header className='text-center' closeButton>          
           <h5> Efetuar Venda </h5>
         </Modal.Header>

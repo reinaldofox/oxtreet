@@ -8,15 +8,9 @@ import Home from './routes/Home'
 import Venda from './routes/Venda'
 import Estoque from './routes/Estoque'
 import Cliente from './routes/Cliente'
+import Fornecedor from './routes/Fornecedor'
 import Administrativo from './routes/Administrativo'
 import ErrorPage from './routes/ErrorPage'
-
-// const router = createBrowserRouter([
-//   {
-//     path: '/',
-//     element: <Home />
-//   }
-// ])
 
 const router = createBrowserRouter([
   {
@@ -41,13 +35,16 @@ const router = createBrowserRouter([
         element: <Cliente />
       },
       {
+        path: '/fornecedores',
+        element: <Fornecedor />
+      },
+      {
         path: '/administrativo',
         element: <Administrativo />
-      }
+      },
     ]
   }
 ])
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

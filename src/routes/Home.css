@@ -1,0 +1,124 @@
+/*
+O data list original pode ser facilmente estilizado
+O datalist que vc criou não pode ser selecionado como o teclado
+e isso é um problma por isso é melhor usar e estilizar o datalist original
+aqui está o CSS
+
+<datalist> and <option> styling 
+datalist {
+  position: absolute;
+  max-height: 20em;
+  border: 0 none;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+datalist option {
+  font-size: 0.8em;
+  padding: 0.3em 1em;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+datalist option:hover, datalist option:focus {
+  color: #fff;
+  background-color: #036;
+  outline: 0 none;
+}
+Fonte: https://codepen.io/SitePoint/pen/JjbXrvE
+
+Fazer assim
+  <option value="Juice">Apple Juice</option>
+  O valor aparece maior e o texto aparece menor na linha abaixo
+*/
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+
+datalist {
+  position: absolute;
+  max-height: 20em;
+  border: 0 none;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+datalist option {
+  font-size: 0.8em;
+  padding: 0.3em 1em;
+  background-color: #ccc;
+  cursor: pointer;
+}
+
+datalist option:hover, datalist option:focus {
+  color: #fff;
+  background-color: #036;
+  outline: 0 none;
+}
+.homeContainer {
+  display: flex;
+  margin-top: 20px;
+  /* border: 1px solid #000 */
+  
+}
+
+.leftContainer {
+  /* border: 1px solid #000; */
+  flex: 1;
+  margin-right: 40px;
+}
+
+.rightContainer {
+  /* border: 1px solid #000; */
+  flex: 3;  
+  font-size: 14px;
+}
+
+.search_results {
+  position: absolute;
+  z-index: 9999;
+  width: 440px;
+  transition: all 1s linear;
+}
+
+.search_result {
+  padding: 12px;
+  width: 100%;
+  background-color: #fffbfb;
+  border: none;
+  border-left: 2px #fffbfb solid;
+  border-bottom: 1px #91918f solid;
+  text-align: left;
+  transition: .2s linear;
+  color: #223944;
+  font-weight: 500;
+}
+
+.search_result:hover {
+  background-color: #eeecec;
+  border: none;
+  border-left: 4px #7c7c7c solid;
+  border-bottom: 1px #91918f solid;
+}
+
+.search_result_close {
+  /* float: right;   */
+  border: none;
+  margin: 0;
+  padding: 0;
+  background-color: none;
+}
+
+.search_result_close svg {
+  color: #797878;
+}
+
+.search_result_close svg:hover {
+  color: #3d3d3d;
+}
+
+/* .search_result_close:hover {
+  background-color: #fc7a7a;
+}  */

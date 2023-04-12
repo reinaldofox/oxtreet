@@ -1,20 +1,36 @@
-  html{
+html{
     height: 100%;
-    padding: 0
+    padding: 0;
+    font-size: 14px;
   }
   body {
-  background-color: black;
-  /* background-image: linear-gradient(to bottom left, #f8cc8b79, #e4ffb3ce, #f8cc8b79, #e4ffb3ce); */
-  background-image: linear-gradient(65.2deg, #d3a2a3,#d9f3e3, #f5e0af, #dab5b5); 
+/*  background: linear-gradient(65.2deg, #d3a2a3,#d9f3e3, #f5e0af, #dab5b5) fixed no-repeat;  */
+/*  background: linear-gradient(1deg, #d9f3e399, #e9960073, #d9f3e394 ) fixed no-repeat; */
+/*  background: linear-gradient(1deg, #f7cfcf, #e1c084, #d6efdf ) fixed no-repeat; */
+    background: linear-gradient( 135deg, #efd4ae, #d6efdf, #e5abab) fixed no-repeat;
+
   margin: 0;
   height: 100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: Comfortaa, 'Ubuntu', BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
+    font-size: 1.5vw;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-attachment: fixed;
 }
+
+
+.form-control {
+  border-radius: 0 !important;
+}
+
+select:focus, .form-control:focus {
+  border: 1px solid #7c7c7c !important; /* if you want to remove borders at all*/
+  outline: #d9f3e3 !important;
+  box-shadow: none  !important;
+  border-radius: 0;
+}  
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
@@ -24,8 +40,15 @@ code {
   /* color: indianred; */
   color: #478992;
   cursor: pointer;
-  margin: 0 5px;
+  margin: 0 8px;
   transition: all .2s ease-in-out;
+}
+
+.span_icon {
+  margin-right: .2em;
+  position: relative;
+  bottom: .2em;
+  color: #478992;
 }
 
 .icon:hover{
@@ -47,4 +70,14 @@ code {
 
 tr, td {
   vertical-align: middle;
+}
+
+.logosvg {
+  color: #524c53;
+}
+
+.accordion {
+  --bs-accordion-color: #524c53 !important;
+  --bs-accordion-bg: #ccccc146 !important;
+  --bs-accordion-active-bg: #c0e1f175 !important;
 }
