@@ -1,0 +1,41 @@
+.nav_menu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: -moz-fit-content;
+  width: fit-content;
+  min-width: 300px;
+  height: 100%;
+  font-size: .75vw; 
+}
+
+.nav_menu span, .nav_menu a {
+  font-family: Comfortaa;
+  color: #716464;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  font-weight: bolder;
+  text-shadow: 0 0 1px #8c8b8b; 
+}
+
+.nav_menu a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: all .4s linear;
+  padding: 8px 6px;  
+}
+
+.nav_menu a:target {
+  background: #716464;
+}
+
+.nav_menu a:hover {
+  text-shadow: 0 0 2px #dccdcd, 0 0 2px #dccdcd;
+  color: #e9e8db;
+  font-weight: bolder;
+  padding: 8px 8px;
+  /* background: #e06469; */
+  background: #e06666;
+  border-radius: 4px;
+}

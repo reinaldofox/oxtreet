@@ -1,35 +1,36 @@
 html{
     height: 100%;
     padding: 0;
-    font-size: 14px;
   }
+
   body {
 /*  background: linear-gradient(65.2deg, #d3a2a3,#d9f3e3, #f5e0af, #dab5b5) fixed no-repeat;  */
 /*  background: linear-gradient(1deg, #d9f3e399, #e9960073, #d9f3e394 ) fixed no-repeat; */
 /*  background: linear-gradient(1deg, #f7cfcf, #e1c084, #d6efdf ) fixed no-repeat; */
-    background: linear-gradient( 135deg, #efd4ae, #d6efdf, #e5abab) fixed no-repeat;
+/*     background: linear-gradient( 135deg, #efd4ae, #d6efdf, #e5abab) fixed no-repeat;  */
+/*     background-color:#e6ded1 !important; */
+  background-color: #e7e2d1 !important;   
+  background-repeat: no-repeat;
 
   margin: 0;
-  height: 100%;
-  font-family: Comfortaa, 'Ubuntu', BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-    font-size: 1.5vw;
+  /* height: 90%; */
+  font-family: Comfortaa, Convergence, Ubuntu, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen,
+  Cantarell, 'Fira Sans', 'Droid Sans', 'Helvetica Neue',  sans-serif !important;
+  font-size: 14px;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-attachment: fixed;
 }
 
-
 .form-control {
-  border-radius: 0 !important;
+  border-radius: 6px !important;
+  font-size: .8rem;
 }
 
 select:focus, .form-control:focus {
   border: 1px solid #7c7c7c !important; /* if you want to remove borders at all*/
   outline: #d9f3e3 !important;
   box-shadow: none  !important;
-  border-radius: 0;
+  border-radius: 6px;
 }  
 
 code {
@@ -38,7 +39,7 @@ code {
 }
 .icon{
   /* color: indianred; */
-  color: #478992;
+  color: #818080;
   cursor: pointer;
   margin: 0 8px;
   transition: all .2s ease-in-out;
@@ -53,7 +54,7 @@ code {
 
 .icon:hover{
   color: #da913f;
-  transform: scale(1.2);
+  transform: scale(1.2);  
 }
 
 .nav_tab{
@@ -63,21 +64,83 @@ code {
   color: #da913f !important;
 }
 
-.nav-link{
-  color: #432c7a !important;
-  font-weight: 900;
-}
-
 tr, td {
   vertical-align: middle;
 }
 
 .logosvg {
-  color: #524c53;
+  /* color: #e06469; */
+  color: indianred;
 }
 
 .accordion {
   --bs-accordion-color: #524c53 !important;
   --bs-accordion-bg: #ccccc146 !important;
   --bs-accordion-active-bg: #c0e1f175 !important;
+}
+
+.nav-link.active, .btn-primary {
+  background-color: #716464 !important;
+  border-color: #716464 !important;
+  color: #f9ecd5 !important;
+  /* margin-right: 5px; */
+  font-weight: 900;
+}
+
+.btn-primary:hover {
+  background-color: #5a4a4a !important;
+}
+
+.nav-link {
+  background-color: #8ca2af !important;
+  border-color: #8ca2af !important;
+  color: #f9ecd5 !important;
+  margin-right: 5px;
+  font-weight: 900;
+  transition: background-color .3s linear 
+}
+
+.nav-link:hover {
+  background-color: #5a4b49 !important;
+}
+
+.btn {
+  font-size: 12px !important;
+  /* border: none !important; */
+}
+
+.border-primary {  
+  border-color: #716464 !important;
+}
+
+.btn-outline-primary {
+  border-color: #716464 !important;
+  color: #716464 !important;
+}
+
+.btn-outline-primary:hover {
+  background-color: #716464 !important;
+  color: #f9ecd5 !important;
+}
+
+.btn-outline-primary:focus-visible {
+  background-color: #716464 !important;
+  color: #f9ecd5 !important;
+}
+
+.btn-check:checked+.btn, .btn.active, .btn.show, .btn:first-child:active, :not(.btn-check)+.btn:active {
+  background-color: #716464 !important;
+  color: #f9ecd5 !important;
+}
+
+.dropdown-menu {
+  min-width: 40px !important;
+}
+
+/* REMOVER AS SETAS DO INPUT NUMBER */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

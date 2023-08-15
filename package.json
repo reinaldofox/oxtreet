@@ -3,25 +3,21 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
+    "@vitejs/plugin-react": "4.0.0",
     "bootstrap": "^5.2.3",
     "react": "^18.2.0",
-    "react-animate-height": "^3.1.0",
-    "react-bootstrap": "^2.7.0",
+    "react-bootstrap": "^2.7.4",
     "react-dom": "^18.2.0",
-    "react-icons": "^4.8.0",
+    "react-icons": "4.10.1",
     "react-router-dom": "^6.7.0",
-    "react-scripts": "5.0.1",
     "styled-components": "^5.3.9",
-    "styled-icons": "^10.47.0"
+    "vite": "4.3.9",
+    "vite-plugin-svgr": "3.2.0"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "start": "vite",
+    "build": "tsc && vite build",
+    "serve": "vite preview"
   },
   "eslintConfig": {
     "extends": [

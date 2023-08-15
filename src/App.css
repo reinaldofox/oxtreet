@@ -1,15 +1,33 @@
-.App {  
-  /* border: 1px #c5c7e4 solid; */
+#main {
+  opacity: 0;
+  margin-top: 100px;
+  transition: opacity 1.2s linear, margin-top 1.2s ease;
+}
+
+.App { 
+  height: fit-content;
+  transition: height linear 1s;
   border-radius: 8px;
-  margin: 0 auto;
+  margin: 0 auto;  
   padding: 20px;
-  width: 75%;
+  width:75%;
   min-height: 600px;
   min-width: 600px;
-  background-color: #ffffff41;
-  /* box-shadow: #11111a1a 0px 8px 24px, #11111a1a 0px 16px 24px, #11111a1a 0px 24px 60px; */
+  background-color: #cbc4b9;
+  box-shadow: #11111a1a 0px 8px 24px, #11111a1a 0px 16px 24px, #11111a1a 0px 24px 60px;
 }
 
 input[type="radio"], input[type="checkbox"] {
   cursor: pointer;
 }
+
+/* Styles do form de login */
+#formLogin {
+  display: flex;
+  justify-content: center;
+  vertical-align: middle;
+  width: 400px;
+  flex-direction: column;
+  margin: 20px auto;
+}
+

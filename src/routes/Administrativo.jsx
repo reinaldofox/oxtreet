@@ -1,95 +1,193 @@
 import React, { useEffect, useState } from 'react'
-import Fetcher from '../utils/Fetcher.js'
-import {Form, InputGroup, Button} from 'react-bootstrap'
-import './Administrativo.css'
-import { API_URL } from '../components/Messages.module'
-import { HiOutlineColorSwatch } from 'react-icons/hi'
+import { Button, Dropdown, Form, InputGroup, Table } from 'react-bootstrap'
+import { BsCalculator } from 'react-icons/bs'
+import { HiOutlineArrowRight, HiOutlineColorSwatch } from 'react-icons/hi'
+import { LiaCashRegisterSolid } from 'react-icons/lia'
 import { RiRulerLine } from 'react-icons/ri'
-import Messages from '../utils/Messages.js'
+import { useOutletContext } from "react-router-dom"
+import Loader from '../components/ui/Loader/Loader'
+import API from '../utils/API.js'
+import Dialog from '../utils/Dialog.js'
+import './Administrativo.css'
 
 const Administrativo = () => {
+
+  const emptyDespesa = { tipo: "", motivo: "", valor: "", data: "", info: "" }  
+
+  const user = useOutletContext()
+
+  const [showLoader, setShowLoader] = useState(false)
 
   const [cores, setCores] = useState('')
   const [coresBD, setCoresBD] = useState([])
   
   const [tamanhos, setTamanhos] = useState('')
   const [tamanhosBD, setTamanhosBD] = useState([])
+  const [despesa, setDespesa] = useState(emptyDespesa)
+  const [listaDespesa, setListDespesa] = useState([])
 
-  const handleCores = async (ev) => {
-    ev.preventDefault()
+  // TODO - REFAZER ESSE MÉTODO COM API.fetchRequest e enviar o token do usuário
+  const handleCores = async () => {
     if(cores !== '') {
       const colors = cores.includes(',') ? cores?.split(',').map(c => ({cor: c.trim()})) : [{cor: cores.trim()}]
-      console.log(colors);
-      await fetch(API_URL+'/admin/cor/create', {
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify(colors),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(async response => response.json())
-      .then(data => {
-        setCoresBD(data)
-        Messages.show('success')
-      })
-      .catch(error => console.log('TRATAR ESSE ERRO', error))
+      await API.fetchRequest('POST', '/admin/cor/', colors, user.token)
+      .then(data => setCoresBD(data))
+      .catch(error => console.log('TRATAR ESSE ERRO', error))  
     }
   }
-
-  const handleTamanhos = async (ev) => {
-    ev.preventDefault()
-    if(tamanhos !== ''){
-      const sizes = tamanhos.includes(',') ? tamanhos?.split(',').map(t => t.trim()) : [{tamanho: tamanhos.trim()}]
-      await fetch(API_URL+'/admin/tamanho/create', {
-        method: 'POST',
-        mode: 'cors',
-        body: JSON.stringify(sizes),
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-        },
-      })
-      .then(async response => response.json())
-      .then(data => console.log(data))
-      .catch(error => console.log('TRATAR ESSE ERRO', error))
-    }    
-  }
-
+  
   const getCores = async () => {
     try {
-      await Fetcher.request('/admin/cor', "GET")
+      await API.fetchRequest("GET", '/admin/cor', null, user.token)
       .then(data => setCoresBD(data))
-      .catch(error => console.log('erro----------', error))
+      .catch(error => console.log('erro', error))
     } catch (error) {
       alert("deu pau a linha 71", error)
     }
   }
 
+  // TODO - REFAZER ESSE MÉTODO COM API.fetchRequest e enviar o token do usuário
+  const handleTamanhos = async (ev) => {
+    ev.preventDefault()
+    if(tamanhos !== ''){
+      const sizes = tamanhos.includes(',') ? tamanhos?.split(',').map(t => t.trim()) : [{ tamanho: tamanhos.trim() }]
+      await API.fetchRequest('POST', '/admin/tamanho/', sizes, user.token)
+      .then(data => setCoresBD(data))
+      .catch(error => console.log('TRATAR ESSE ERRO', error))
+    }    
+  }
+
   const getTamanhos = async () => {
-    await fetch(API_URL+'/admin/tamanho')
-    .then(async response => response.json())
-    .then(async data => setTamanhosBD(data))
+    await API.fetchRequest('GET', '/admin/tamanho', null, user.token)
+    .then(data => setTamanhosBD(data))
     .catch(error => console.log('TRATAR ESSE ERRO', error))
+  }
+
+  const isValidDespesa = () => {
+    return despesa.tipo != "" && despesa.motivo != "" && despesa.valor != "" && despesa.data != ""
+  }
+
+  const handleLancarDespesa = async () => {
+    if (!isValidDespesa()) {
+      Dialog.show('alert', 'Favor informar todos os campos!')
+      return
+    }
+    
+    setShowLoader(true)
+    await API.fetchRequest('POST', '/admin/despesa', despesa, user.token)
+      .then(data => {
+        setShowLoader(false)
+        if (data.error) {
+          Dialog.show('error', data.error)
+          return
+        }
+        setDespesa(emptyDespesa)
+        getListaDespesa()
+        Dialog.show('success', 'Despesa lançada com sucesso!')
+      })
+    .catch(error => console.log('TRATAR ESSE ERRO', error))
+  }
+
+  const getListaDespesa = async () => {
+    await API.fetchRequest('GET', '/admin/despesa', null, user.token)
+    .then(data => setListDespesa(data))
+    .catch(error => Dialog.show('error', 'Ocorreu um erro ao buscar as despesas!'))
   }
 
   useEffect(() => {
     getCores()
     getTamanhos()
+    getListaDespesa()
   }, [])
 
   return (
     <>
-    {/* 
-      <a href="/faturamento">Faturamento</a>
-      <a href="/gastos">Gastos</a>
-      <a href="/grades">Grades</a>
-      <a href="/fornecedores">Fornecedores</a>
-      Dados da moto, como consumo, preço gasolina e distancia
-      para calcular o frete 
-      <a href="/moto">Moto</a>
-    */}
+      <div className='admin_content'>
+        <Loader show={showLoader} />
+      <div className='admin_board'>       
+        <h6 className='text_divider'> <BsCalculator size={30} />Despesas</h6>
+        <div style={{display: "flex", alignContent: "flex-end", justifyContent: "space-evenly"}}>
+          <Dropdown>            
+          <Dropdown.Toggle className="primary">
+            {despesa.motivo || 'Despesa'}
+          </Dropdown.Toggle >
+            <Dropdown.Menu>
+              <Dropdown.Header>Administrativa</Dropdown.Header>
+              <Dropdown.Item as="button" value="Internet"
+              onClick={ev => setDespesa({ ...despesa, tipo: "Administrativa", motivo: ev.target.value })}>
+                Internet
+              </Dropdown.Item>
+              <Dropdown.Item as="button" value="Telefone"
+              onClick={ev => setDespesa({ ...despesa, tipo: "Administrativa", motivo: ev.target.value })}>
+                Telefone
+              </Dropdown.Item>
+              <Dropdown.Item as="button" value="Insumos"
+              onClick={ev => setDespesa({ ...despesa, tipo: "Administrativa", motivo: ev.target.value })}>
+                Insumos
+              </Dropdown.Item>                    
+              <Dropdown.Item as="button" value="Outros"
+              onClick={ev => setDespesa({ ...despesa, tipo: "Administrativa", motivo: ev.target.value })}>
+                Outros
+              </Dropdown.Item>
+              
+              <Dropdown.Header>Financeira</Dropdown.Header>
+              <Dropdown.Item as="button" value="INSS"
+              onClick={ev => setDespesa({ ...despesa, tipo: "Financeira", motivo: ev.target.value })}>
+                INSS
+              </Dropdown.Item>                    
+              <Dropdown.Item as="button" value="Taxas"
+              onClick={ev => setDespesa({ ...despesa, tipo: "Financeira", motivo: ev.target.value })}>
+                Taxas
+              </Dropdown.Item>
+              <Dropdown.Item as="button" value="Encargos"
+              onClick={ev => setDespesa({ ...despesa, tipo: "Financeira", motivo: ev.target.value })}>
+                Encargos
+              </Dropdown.Item>
+              <Dropdown.Item as="button" value="Juros"
+              onClick={ev => setDespesa({ ...despesa, tipo: "Financeira", motivo: ev.target.value })}>
+                Juros
+              </Dropdown.Item>          
+            </Dropdown.Menu>            
+          </Dropdown>
+
+          <Form.Group  controlId="formLancarDespesa">
+            <Form.Control required type="text" placeholder='Valor' value={despesa.valor}
+                onChange={ev => setDespesa({ ...despesa, valor: ev.target.value })} />             
+          </Form.Group>
+
+            <input type="date" className="form-control w-25" value={despesa.data}
+              onChange={ev => setDespesa({ ...despesa, data: ev.target.value })} />
+            <HiOutlineArrowRight size={30} color='#6d6464'/>
+            <Button disabled={!isValidDespesa()} onClick={handleLancarDespesa}>Lançar</Button>
+        </div>
+        <hr />
+        <Table className="table table-striped">
+          <thead>
+            <tr>
+              <th>Tipo</th>
+              <th>Motivo</th>
+              <th>Valor</th>
+              <th>Data</th>          
+            </tr>
+          </thead>
+          <tbody>
+            {listaDespesa.map((ld, index) => (
+              <tr key={index} style={{ height: '40px' }}>
+                <td>{ld.tipo}</td>
+                <td>{ld.motivo}</td>
+                <td>{Dialog.brl(ld.valor)}</td>
+                <td>{new Date(ld.data).toLocaleDateString()}</td>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      
+      </div>
+
+      <div className='admin_board'>       
+        <h6 className='text_divider'> <LiaCashRegisterSolid size={30} />Financeiro</h6>
+      </div>
+    </div>
 
     <div className='admin_content'>
 

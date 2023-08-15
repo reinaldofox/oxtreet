@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
+import { BiSearch } from 'react-icons/bi'
+import { API_URL } from '../Dialog.module'
 import Input, { Select } from '../Input'
 import './styles.css'
-import { BiSearch } from 'react-icons/bi'
-import { API_URL } from '../Messages.module'
 
 const  SearchGrid = () => {
   
@@ -18,7 +18,6 @@ const  SearchGrid = () => {
   const handleSearch = async (ev)  => {
     ev.preventDefault()
     await getProdutos()
-    console.log(produtos)
   }
 
   const getProdutos = async () => {

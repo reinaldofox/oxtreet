@@ -1,31 +1,28 @@
 import React, { useState } from 'react'
-import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
+import API from '../../utils/API'
+// import Dialog from '../../utils/Dialog'
+import './Login.css'
 
 const Login = () => {
   
   const [login, setLogin] = useState('')
   const [password, setPassword] = useState('')
 
-  const handleSubmit = (ev) => {
+  const handleLogin = async (ev) => {
     ev.preventDefault()
-    // axios.post('http://localhost:3001/login/', {login, password})
-    // .then(res => { 
-    //   console.log(res.data)
-    //   cleanForm()
-    // })
-    // .catch(error => {
-    //   console.log(error.message)
-    // })
+    await API.fetchRequest('POST', '/app/login', { login, password })
+    .then(data => storeUser(data))
+    .catch(error => console.log('error', error))
   }
 
-  const cleanForm = () => {
-    setLogin('')
-    setPassword('')
+  const storeUser = data => {
+    sessionStorage.setItem('userSession', JSON.stringify(data))
   }
 
   return(
-    <Form id='formLogin' method='post' onSubmit={handleSubmit}>
+    <Form id='formLogin' method='post' onSubmit={ev => handleLogin(ev)}>
 
       <Form.Group className="mb-3" controlId="inputLogin">
         <Form.Label>Login</Form.Label>

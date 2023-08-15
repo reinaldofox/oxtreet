@@ -1,5 +1,6 @@
 :root {
-  --azul-suave: #9daec9;
+  /* --azul-suave: #9daec9; */
+  --azul-suave: #687c9d;
   --cinza: #6d6767;
   --marmore: #8ca2af;
   --oxred: #d25959;
@@ -13,16 +14,16 @@
 
 .admin_board {
   width: 50%;
-  margin: 8px;
-  background-color: #ccccc146;
-  padding: 10px;
+  margin: 5px;
+  background-color: #fff7df42;
+  padding: 20px; 
   border-radius: 6px
 }
 
 .text_divider {
   display: flex;
   flex-direction: row;
-  margin: 10px;
+  margin-bottom: 25px;
   align-items: center;
   color: var(--azul-suave);;
 }
@@ -40,7 +41,7 @@
 .text_divider:after {
     content: "";
     flex: 1 1 ;
-    border-bottom: 2px solid var(--azul-suave);
+    border-bottom: 1px solid var(--azul-suave);
     margin: auto 10px
 }
 

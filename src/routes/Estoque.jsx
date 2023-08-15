@@ -1,6 +1,6 @@
-import React from 'react'
-import OxTable from '../components/Table'
-import CadastroProduto from '../components/Produto/CadastroProduto.jsx'
+import React from 'react';
+import CadastroProduto from '../components/forms/Produto/CadastroProduto';
+import OxTable from '../components/layout/Table';
 // import Button from 'react-bootstrap/Button';
 // import Modal from 'react-bootstrap/Modal';
 // import Form from 'react-bootstrap/Form'
@@ -20,6 +20,7 @@ const Estoque = () => {
     <>
 
     <Tabs variant="pills" className="mb-3" >
+      
       <Tab eventKey="produtos" title="Produtos">
         <hr />
         <OxTable />
@@ -34,6 +35,13 @@ const Estoque = () => {
       <hr />
       Aqui será o formulário de pesquisa
       </Tab>
+      
+      <Tab eventKey="grades" title="Grades">
+      <hr />
+          <h5>Grades</h5>
+          Filtrar grades por um select de produtos
+        </Tab>
+        
     </Tabs>    
 
     {/* <Modal show={show} onHide={handleClose} size="xl" centered backdrop="static">

@@ -1,62 +1,74 @@
-import React, { useState, useRef } from 'react'
-import ModalMessage from "../components/ModalMessage";
-import FormCliente from '../components/FormCliente'
-import { CONFIRM_TITLE, CONFIRM_EXCLUIR } from '../components/Messages.module'
-import Button from 'react-bootstrap/Button';
-import Overlay from 'react-bootstrap/Overlay';
-import Popover from 'react-bootstrap/Popover';
+import React, { useReducer } from "react";
+import { PessoaContext, pessoaReducer, _pessoa } from '../contexts/PessoaContext'
+import { Button, Tab, Tabs } from "react-bootstrap";
+import { useOutletContext } from "react-router-dom";
+import CadastroEndereco from "../components/forms/Endereco/CadastroEndereco";
+import CadastroCliente from "../components/forms/Pessoa/CadastroPessoa";
+import TabelaClientes from "../components/tables/TabelaClientes";
+import API from "../utils/API.js";
+import Dialog from "../utils/Dialog";
+import { TfiMapAlt } from 'react-icons/tfi'
+import { AiOutlineUserAdd } from 'react-icons/ai'
+import { TbUsersGroup } from 'react-icons/tb'
 
 const Cliente = () => {
+  const user = useOutletContext();
+  _pessoa.tipo = "Cliente"
+  const [pessoa, dispatch] = useReducer(pessoaReducer, _pessoa);
 
-  const [showModal, setShowModal] = useState(false);
-
-  const [target, setTarget] = useState(null);
-  const [show, setShow] = useState(false);
-  const ref = useRef(null);
-
-  const [info, setInfo] = useState('')
-
-  const handleClick = (event) => {
-    setShow(!show);
-    setTarget(event.target);
+  const handselect = (evkey) => {
+    if (evkey == 3) console.log("entrou na aba de pesquisa");
   };
 
-  const handleShowModal = () => {
-    setShow(true)
-    // document.body.style.filter = 'blur(2px)'
-  }
+  const registerCliente = async () => {
+    await API.fetchRequest("POST", "/cliente/create", pessoa, user.token)
+      .then(() => {
+        Dialog.show("success", "Cadastro efetuado com sucesso!");
+        resetForm();
+      })
+      .catch((error) => {
+        Dialog.show("error", "Ocorreu um erro inesperado!");
+        console.error(error);
+      });
+  };
+
+  const resetForm = () => {
+    console.log(pessoa)
+  };
 
   return (
-    <div>
+    <Tabs
+      defaultActiveKey={1}
+      variant="pills"
+      className="mb-3"
+      onSelect={(evkey) => handselect(evkey)}
+    >
+      <Tab eventKey={1} title="Clientes">
+        <div className='admin_board'style={{width: "100%", marginLeft: 0}}>
+          <h6 className='text_divider'> <TbUsersGroup size={30} />Clientes</h6>
+          <TabelaClientes />
+        </div>
+      </Tab>
+      <Tab eventKey={2} title="Cadastrar">
+        <PessoaContext.Provider value={{ pessoa, dispatch }}>
+        <div className='admin_board'style={{width: "100%", marginLeft: 0}}>
+          <h6 className='text_divider'> <AiOutlineUserAdd size={30} />Cliente</h6>
+            <CadastroCliente tipo={'pessoa'} />
+        </div>
+        <div className='admin_board' style={{width: "100%", marginLeft: 0}}>
+          <h6 className='text_divider'> <TfiMapAlt size={30} />Endereço</h6>
+          <CadastroEndereco />
+        </div>
+        <Button variant="primary" onClick={registerCliente}>
+          Cadastrar
+        </Button>
+        </PessoaContext.Provider>
+      </Tab>
+      <Tab eventKey={3} title="Pesquisar">
+        Aqui será o formulário de pesquisa
+      </Tab>
+    </Tabs>
+  );
+};
 
-      <FormCliente />
-
-      <h2>Modal Demo</h2>
-      <button className="btn btn-info btn-sm" onClick={handleShowModal}>Open Modal 1</button>
-      <hr />
-      <Button onClick={handleClick} onMouseEnter={ev => setInfo(`We declare a function called changeBackground above 
-      the view part of the React Component. The changeBackground function receives the event object 
-      (which is passed automatically through any event handler to a function), 
-      and changes the style.background value to ‘red’.'`)}>Mostrar popover</Button>
-      <ModalMessage
-        show={showModal}
-        handleClose = {() => setShowModal(false)}
-        handleShow = {() => setShowModal(true)}
-        modalTitle = {CONFIRM_TITLE}
-        modalMessage = {CONFIRM_EXCLUIR}
-      />  
-
-    <Button onClick={handleClick} onMouseEnter={ev => {handleClick(); setInfo('mensagem popover')}}>Mostrar popover</Button>  
-    <div ref={ref}>    
-      <Overlay show={show} target={target} placement="top" container={ref} containerPadding={20} >
-        <Popover id="popover-contained">
-          <Popover.Body>{info} </Popover.Body>
-        </Popover>
-      </Overlay>
-    </div> 
-
-    </div>
-  )
-}
-
-export default Cliente
+export default Cliente;
