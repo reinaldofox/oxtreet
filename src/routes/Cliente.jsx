@@ -22,18 +22,19 @@ const Cliente = () => {
 
   const registerCliente = async () => {
     await API.fetchRequest("POST", "/cliente/create", pessoa, user.token)
-      .then(() => {
+      .then((data) => {
+        debugger
+        if (data.errors) {
+          Dialog.show('error', data.errors)
+          return
+        }
         Dialog.show("success", "Cadastro efetuado com sucesso!");
-        resetForm();
+        dispatch({ type: "reset"})
       })
       .catch((error) => {
         Dialog.show("error", "Ocorreu um erro inesperado!");
         console.error(error);
       });
-  };
-
-  const resetForm = () => {
-    console.log(pessoa)
   };
 
   return (
