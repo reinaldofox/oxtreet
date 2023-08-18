@@ -14,7 +14,7 @@ const Header = (props) => {
       <div>
         <IoLogoOctocat size={28} fill='beige' />
           <span style={{ color: 'beige', marginLeft: '5px' }} className='fs-6'>
-            <nobr>{props.user.nome}</nobr>
+            <nobr>{props.user?.nome}</nobr>
           </span>
       </div>
     </div>

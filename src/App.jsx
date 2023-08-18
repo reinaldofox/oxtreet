@@ -30,7 +30,13 @@ const App = () => {
   const handleLogin = async (ev) => {
     ev.preventDefault()
     await API.fetchRequest('POST', '/app/login', { login, password })
-    .then(data => storeUser(data))
+      .then(data => {
+        if (data.errors) {
+          Dialog.show('error', data.errors)
+          return
+        }
+        storeUser(data)
+      })
     .catch(error => console.log('error', error))
   }
 
@@ -81,10 +87,8 @@ const App = () => {
       <div className='Dialog' id='Dialog'> </div>        
       {user ?
           <div id='main' ref={mainRef}>
-          <Header user={user} class={small ? 'small_header' : ''} />      
-            <div className="App" ref={appRef}>
-              <Outlet context={user}/>
-            </div>
+            <Header user={user} class={small ? 'small_header' : ''} />      
+            <div className="App" ref={appRef}><Outlet context={user}/></div>
             <Footer />
           </div>
         :
@@ -101,7 +105,6 @@ const App = () => {
           <Form.Switch label={"Manter conectado"} onClick={() => setManterConectado(!manterConectado)} /> 
         </Form>          
       }
-
     </>
   );
 }
