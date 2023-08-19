@@ -4,6 +4,7 @@ import Form from 'react-bootstrap/Form'
 import { Outlet } from 'react-router-dom'
 import './App.css'
 import Header from './components/layout/Header'
+import Login from './components/Login/Login'
 import Footer from './components/layout/Footer'
 import API from './utils/API'
 import Dialog from './utils/Dialog'
@@ -22,30 +23,15 @@ const App = () => {
   const appRef = useRef()
   const [small, setSmall] = useState(false)  
   
-  const [login, setLogin] = useState('')
-  const [password, setPassword] = useState('')
+  const [loginData, setLoginData] = useState({login: "", password: "", manterLogado: false})
   const [user, setUser] = useState(null)
-  const [manterConectado, setManterConectado] = useState(false)
 
-  const handleLogin = async (ev) => {
-    ev.preventDefault()
-    await API.fetchRequest('POST', '/app/login', { login, password })
-      .then(data => {
-        if (data.errors) {
-          Dialog.show('error', data.errors)
-          return
-        }
-        storeUser(data)
-      })
-    .catch(error => console.log('error', error))
-  }
-
-  const storeUser = data => {
-    if (data) {
-      setUser(data)
+  const storeUser = user => {
+    if (user) {
+      setUser(user)
       loadAppValues()
       showApp()
-      if (manterConectado) {
+      if (manterLogado) {
         localStorage.setItem('userSession', JSON.stringify(data))
       } else {
         localStorage.removeItem('userSession')
@@ -84,26 +70,15 @@ const App = () => {
 
   return (
     <>
-      <div className='Dialog' id='Dialog'> </div>        
+      <div className='Dialog' id='Dialog'> </div>
       {user ?
-          <div id='main' ref={mainRef}>
-            <Header user={user} class={small ? 'small_header' : ''} />      
-            <div className="App" ref={appRef}><Outlet context={user}/></div>
-            <Footer />
-          </div>
+        <div id='main' ref={mainRef}>
+          <Header user={user} class={small ? 'small_header' : ''} />      
+          <div className="App" ref={appRef}><Outlet context={user}/></div>
+          <Footer />
+        </div>
         :
-        <Form id='formLogin' method='post' onSubmit={ev => handleLogin(ev)}>
-          <Form.Group className="mb-3" controlId="inputLogin">
-            <Form.Label>Login</Form.Label>
-            <Form.Control type="text" required value={login} onChange={e => {setLogin(e.target.value.trim())}}/>    
-          </Form.Group>
-          <Form.Group className="mb-3" controlId="inputPassword">
-            <Form.Label>Password</Form.Label>
-            <Form.Control type="password" required value={password} onChange={e => {setPassword(e.target.value.trim())}}/>         
-          </Form.Group>
-          <Button variant="primary" className="w-100 btn-secondary mb-3" type="submit"> Entrar </Button>
-          <Form.Switch label={"Manter conectado"} onClick={() => setManterConectado(!manterConectado)} /> 
-        </Form>          
+        <Login state={{ loginData, setLoginData, storeUser }} />        
       }
     </>
   );

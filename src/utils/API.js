@@ -14,7 +14,7 @@ class API {
         // 'charset': 'UTF-8',
         'authentication': token ? 'Bearer ' + token : null,
       },
-      body: body ? JSON.stringify(body) : null,
+      body: body ? JSON.stringify(body) : null
     }
   }
 
