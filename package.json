@@ -16,7 +16,8 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
-    "serve": "vite preview"
+    "preview": "vite preview",
+    "serve": "vite serve"
   },
   "browserslist": {
     "production": [

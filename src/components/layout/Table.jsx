@@ -15,11 +15,12 @@ import Loader from '../ui/Loader/Loader.jsx'
 import { Button, Form, Modal, OverlayTrigger, Popover, Table } from 'react-bootstrap'
 import { useOutletContext } from "react-router-dom"
 
-const OxTable = () => {
+const TableProdutos = () => {
 
   const user = useOutletContext()
 
   // let rowToDelete = null;
+  const [showLoader, setShowLoader] = useState(true)
   const [produtos, setProdutos] = useState([])
   const [produtoVenda, setProdutoVenda] = useState({})
   const [suggestions, setSuggestions] = useState([])
@@ -40,8 +41,14 @@ const OxTable = () => {
 
   const loadProdutos = async () => {
     return await API.fetchRequest('GET', '/produto/grade', null, user.token)
-    .then(data => setProdutos(data)) 
-    .catch (error => Dialog.show('error', 'Ocorreu um problema inesperado!'))
+      .then(data => {
+        if (data.errors) {
+          Dialog.show('error', data.errors)
+        }
+        setShowLoader(false)
+        setProdutos(data)
+      }) 
+    .catch (error => console.log(error))
   }
 
   useEffect(() => {
@@ -102,9 +109,10 @@ const OxTable = () => {
 
   return(
     <> 
-      {<Loader show={produtos.length < 1} message={"buscando produtos..."} />}
+      {<Loader show={showLoader} message={"buscando produtos..."} />}
       <div className='admin_board'style={{width: "100%", marginLeft: 0}}>
-          <h6 className='text_divider'> <BsTags size={30} /> Estoque </h6>
+        <h6 className='text_divider'> <BsTags size={30} /> Estoque </h6>
+      {produtos.length < 1 ? <h4>Estoque vazio</h4> :
       <Table id='tbl_produtos' className="table table-striped">
         <colgroup><col /><col /><col /><col /><col /></colgroup>
         <thead>
@@ -152,7 +160,8 @@ const OxTable = () => {
             </tr>       
           ))}
         </tbody>
-      </Table> 
+        </Table> 
+        }
       </div>
       <Modal show={showModalVenda} onHide={handleClose} size="lg" centered backdrop="static">
         <Modal.Header className='text-center' closeButton>          
@@ -196,4 +205,4 @@ const OxTable = () => {
   )
 }
 
-export default OxTable
+export default TableProdutos
