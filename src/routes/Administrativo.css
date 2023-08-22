@@ -48,7 +48,7 @@
 .oxlegend {
   font-style: italic;
   background-color: var(--azul-suave);
-  color: #fff;
+  color: #f5ebcb;
   width: fit-content;
   padding: 5px 10px;
   margin-bottom: 6px;
@@ -65,12 +65,12 @@
 }
 
 .oxbadge {
-  margin: 2px 0 2px 2px;
+  margin: 2px;
   display: inline-flex;
   /* background-color: #ce9797; */
   background-color: var(--marmore);
-  color: #e2e2e2;
-  padding: 4px 8px;
+  color: #f5ebcb;
+  padding: 4px 10px;
   /* border-top-left-radius: 4px; 
   border-bottom-left-radius: 4px; */
 }

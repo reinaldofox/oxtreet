@@ -1,3 +1,4 @@
+import React from 'react'
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
 import API from '../../utils/API'
@@ -39,7 +40,7 @@ const Login = (props) => {
 
       <Button variant="primary" className="w-100 btn-secondary" type="submit"> Entrar </Button>
       <Form.Switch label={"Manter conectado"} checked={loginData.manterLogado}
-          onChange={e =>  setLoginData({ ...loginData, manterLogado: loginData.manterLogado})} /> 
+          onChange={e =>  setLoginData({ ...loginData, manterLogado: !loginData.manterLogado})} /> 
         {/* onClick={() => setManterConectado(!manterConectado)} />  */}
 
     </Form>  

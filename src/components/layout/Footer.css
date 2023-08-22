@@ -1,7 +1,16 @@
-.footer {
-  margin-top: 30px;
+.footer {  
   color: #737373;
-  /* color: #716464; */
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  height: 160px;
+  width: 75%; 
+  margin: 20px auto; 
+  flex-direction: column  
+}
+
+.icons-list {
+  margin: 15px 0;
 }
 
 .icons-list svg, .icons-list img {

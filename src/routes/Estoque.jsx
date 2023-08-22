@@ -1,8 +1,7 @@
 import React from 'react';
 import CadastroProduto from '../components/forms/Produto/CadastroProduto';
 import TableProdutos from '../components/layout/Table';
-import Tab from 'react-bootstrap/Tab';
-import Tabs from 'react-bootstrap/Tabs';
+import { Tab, Tabs } from 'react-bootstrap/';
 
 const Estoque = () => {
   return (

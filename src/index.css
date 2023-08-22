@@ -158,3 +158,10 @@ input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
+
+.hr {
+  color: #687c9d;
+  outline: 1px solid #6f7c9d;
+  width: 99%;
+  margin-top: .18em;
+}

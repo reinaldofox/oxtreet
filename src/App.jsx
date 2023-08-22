@@ -29,8 +29,8 @@ const App = () => {
       setUser(user)
       loadAppValues()
       showApp()
-      if (manterLogado) {
-        localStorage.setItem('userSession', JSON.stringify(data))
+      if (loginData.manterLogado) {
+        localStorage.setItem('userSession', JSON.stringify(user))
       } else {
         localStorage.removeItem('userSession')
       }
