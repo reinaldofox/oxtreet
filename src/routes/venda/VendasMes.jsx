@@ -14,11 +14,7 @@ import './Venda.css';
 const VendaMes = () => {
 
   const user = useOutletContext() || {}
-
   const [vendas, setVendas] = useState([])
-  const [filtros, setFiltros] = useState({})
-  const [filtro, setFiltro] = useState('Selecione')
-  const [info, setInfo] = useState()
   const [sumarioMensal, setSumarioMensal] = useState([])
   const [showLoader, setShowLoader] = useState(true)
 
@@ -55,15 +51,6 @@ const VendaMes = () => {
     }, 1);
   }
 
-  const handleSetFiltros = ev => {
-    const { name, value } = ev.target
-    setInfo(prev => name + ' : ' + value)
-    setFiltros(prev => ({
-      ...prev,
-      [name]: value,
-    }))
-  }
-
   const bgColorsChart = (total) => {
     total = parseInt(total)
     if (total <= 2000)
@@ -76,47 +63,13 @@ const VendaMes = () => {
       return "#74b185"
   }
 
-  const buscar = () => {
-    API.fetchRequest('GET', '/venda/?filtros=' + JSON.stringify(filtros))
-      .then(data => {
-        if(data.errors) {
-          Dialog.show('error', data.errors)
-          return
-        }
-        setShowLoader(false)
-        setVendas(data)
-      })
-      .catch(error => console.log(error))
-  }
-  
   return (
     <>
     {<Loader show={showLoader} message={"buscando vendas..."} />}
     {vendas.length < 1 ? 
       <h5>Nenhuma venda efetuada no mês</h5>
       :
-      <div>    
-        <Dropdown className='d-inline'>
-        <Dropdown.Toggle className="primary">
-        {filtro}
-        </Dropdown.Toggle >
-        <Dropdown.Menu>
-          <Dropdown.Item as="button" value={filtro} onClick={() => setFiltro('Cliente')}>
-            Cliente
-          </Dropdown.Item>
-          <Dropdown.Item as="button" value={filtro} onClick={() => setFiltro('Valor')}>
-            Valor
-          </Dropdown.Item>
-          <Dropdown.Item as="button" value={filtro} onClick={() => setFiltro('Pagamento')}>
-            Pagamento
-          </Dropdown.Item> 
-        </Dropdown.Menu>
-        </Dropdown>
-  
-        <Form.Control name={filtro} style={{width: '280px', display: 'inline'}} onChange={() => handleSetFiltros(ev)} />
-        <h6 className="d-md-inline"> {info} </h6>
-        <Button onClick={ev => buscar(ev)}>Buscar</Button>
-  
+      <div>  
         <div className='admin_board' style={{width: "100%", marginLeft: 0}}>       
         <h6 className='text_divider'> <IoReceiptOutline size={30} />Vendas do mês</h6>
           <Table className="table table-striped">
