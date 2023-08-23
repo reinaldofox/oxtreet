@@ -1,8 +1,18 @@
+.oxtreet-login {
+  margin: 50px auto;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  width: 600px;
+  height: 400px;
+  background-repeat: no-repeat;
+}
+
 #formLogin {
   display: flex;
   justify-content: center;
   vertical-align: middle;
-  width: 400px;
+  width: 300px;
   flex-direction: column;
-  margin: 20px auto;
+  margin: 20px;
 }
