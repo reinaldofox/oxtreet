@@ -177,7 +177,7 @@ const TableProdutos = () => {
             <br />
             <small>{produtoVenda.detalhes}</small>
             </div>
-            <hr />        
+            <hr className="hr" />        
 
             <label htmlFor="cliente-suggestion" className="form-label">Informe o cliente</label>
             <input className="form-control" onChange={ev => handleSuggestions(ev.target.value)} list="suggestions" id="cliente-suggestion" placeholder="Digite pelo menos 3 letras." />

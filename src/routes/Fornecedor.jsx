@@ -39,12 +39,14 @@ const Fornecedor = () => {
       className="mb-3"
     >
       <Tab eventKey={1} title="Fornecedores">
+        <hr className="hr" />
         <div className='admin_board'style={{width: "100%", marginLeft: 0}}>
           <h6 className='text_divider'> <MdTrolley size={30} />Fornecedores</h6>
           <TabelaFornecedores />
         </div>
       </Tab>
       <Tab eventKey={2} title="Cadastrar">
+        <hr className="hr" />
         <PessoaContext.Provider value={{ pessoa, dispatch }}>
         <div className='admin_board'style={{width: "100%", marginLeft: 0}}>
           <h6 className='text_divider'> <AiOutlineUserAdd size={30} />Fornecedor</h6>
@@ -60,6 +62,7 @@ const Fornecedor = () => {
         </PessoaContext.Provider>
       </Tab>
       <Tab eventKey={3} title="Pesquisar">
+        <hr className="hr" />
         Aqui será o formulário de pesquisa
       </Tab>
     </Tabs>

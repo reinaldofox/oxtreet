@@ -8,19 +8,19 @@ const Estoque = () => {
     <>
     <Tabs variant="pills" className="mb-3" >      
       <Tab eventKey="produtos" title="Produtos">
-        <hr />
+        <hr className="hr" />
         <TableProdutos />
       </Tab>
       <Tab eventKey="adicionar" title="Adicionar">
-        <hr />
+        <hr className="hr" />
         <CadastroProduto />      
       </Tab>
       <Tab eventKey="pesquisar" title="Pesquisar">
-        <hr />
+        <hr className="hr" />
         Aqui será o formulário de pesquisa
       </Tab>      
       <Tab eventKey="grades" title="Grades">
-        <hr />
+        <hr className="hr" />
         <h5>Grades</h5>
         Filtrar grades por um select de produtos
       </Tab>        

@@ -4,19 +4,22 @@ import { useOutletContext } from 'react-router-dom';
 import API from '../utils/API';
 import Dialog, { meses } from '../utils/Dialog';
 import './Home.css';
+import Loader from '../components/ui/Loader/Loader';
 
 const Home = () => {
 
   const user = useOutletContext()
   const [dash, setDash] = useState({})
+  const [showLoader, setShowLoader] = useState(true)
 
   const loadDashBoard = async () => {
     await API.fetchRequest('GET', '/admin/dashboard', null, user.token)
       .then(data => {
-        if (data.messages) {
-          Dialog.show('error', data.messages)
+        if (data.errors) {
+          Dialog.show('error', data.errors)
         } else {
           setDash(data)
+          setShowLoader(false)
         }
       })
       .catch(error => Dialog.show('error', 'Ocorreu um erro inesperado!'))
@@ -27,7 +30,8 @@ const Home = () => {
   }, [])
   
   return (
-
+    <>
+    {<Loader show={showLoader} message={"buscando informações..."} />}
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center"}}>
       
       <div style={{
@@ -138,7 +142,8 @@ const Home = () => {
       </div>
 
       </div>
-    </div>
+      </div>
+      </>
   )
 }
 

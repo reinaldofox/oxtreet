@@ -1,6 +1,5 @@
 .table {
   color: #0d4364;
-  transition: height linear 1s;
 }
 
 .table_striped>tbody{

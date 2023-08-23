@@ -10,7 +10,7 @@ const Venda = () => {
     <div>
       <Tabs variant="pills" className="mb-3" >
         <Tab eventKey="vendas" title="Vendas">
-          <hr />
+          <hr className="hr" />
           <VendaMes />
         </Tab>
         <Tab eventKey="vender" title="Vender"> 
@@ -20,7 +20,7 @@ const Venda = () => {
         </div>
         </Tab>
         <Tab eventKey="entregas" title="Entregas">
-          <hr />
+          <hr className="hr" />
           Aqui será o formulário de pesquisa
         </Tab>        
       </Tabs>

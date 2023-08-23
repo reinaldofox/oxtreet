@@ -139,26 +139,26 @@ const CadastroProduto = () => {
         console.error(error)
         Dialog.show('error', 'Deu erro no CadastroProduto:loadFornecedores')
       })
-  }
-
-  const insert = async () => {
-    console.log(produto)
-    return await API.fetchRequest('POST', '/produto/create', produto, user.token )
-    .then(data => data)
-    .catch(error => { throw error })
-  }
+  }  
 
   const handleSubmit = async () => {
+    setShowLoader(true)
     try {      
-      await insert().then(data => console.log('Data', data))
-      // getProdutos().then(data => setProdutos(data))
-      console.log(produto)
-      clearForm()
-      Dialog.show('success')
+      return await API.fetchRequest('POST', '/produto/create', produto, user.token )
+      .then(data => {
+        if (data.errors) {
+          Dialog.show('error', data.errors)
+          setShowLoader(false)
+          return
+        }
+        setShowLoader(false)
+        Dialog.show('success', 'Produto cadastrado com sucesso!"')
+      })      
     } catch (error) {
-      console.error(error)
       Dialog.show('error')
     }
+    clearForm()
+    setShowLoader(false)  
   }
 
   return (

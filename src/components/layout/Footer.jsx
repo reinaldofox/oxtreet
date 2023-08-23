@@ -6,11 +6,14 @@ import { FaFacebook } from 'react-icons/fa'
 import { FaWhatsapp } from 'react-icons/fa'
 import { BsShop } from 'react-icons/bs'
 import MLLogo from '../../assets/img/ml.svg'
+// import BgFooter from '../../assets/img/dripping-color.svg'
+import BgFooter from '../../assets/img/dripping-color.svg'
 
 const Footer = () => {
 
   return (
-    <div className='footer'>
+    <div className='footer' style={{ backgroundImage: `url(${BgFooter})`,
+    backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
       {/* <span className="fs-4">oxtreet bh</span> */}      
       <div className='icons-list'>
         <FaInstagram size={36} fill='#737373' title="Instagram" />

@@ -38,19 +38,18 @@ const Cliente = () => {
   };
 
   return (
-    <Tabs
-      defaultActiveKey={1}
-      variant="pills"
-      className="mb-3"
-      onSelect={(evkey) => handselect(evkey)}
-    >
+    // Link entre tabs
+    // https://stackoverflow.com/questions/44169787/how-can-i-change-tabs-in-react-bootstrap-using-a-button
+    <Tabs defaultActiveKey={1} variant="pills" className="mb-3" onSelect={evkey => handselect(evkey)}>
       <Tab eventKey={1} title="Clientes">
+        <hr className="hr" />
         <div className='admin_board'style={{width: "100%", marginLeft: 0}}>
           <h6 className='text_divider'> <TbUsersGroup size={30} />Clientes</h6>
           <TabelaClientes />
         </div>
       </Tab>
       <Tab eventKey={2} title="Cadastrar">
+        <hr className="hr" />
         <PessoaContext.Provider value={{ pessoa, dispatch }}>
         <div className='admin_board'style={{width: "100%", marginLeft: 0}}>
           <h6 className='text_divider'> <AiOutlineUserAdd size={30} />Cliente</h6>
@@ -66,6 +65,7 @@ const Cliente = () => {
         </PessoaContext.Provider>
       </Tab>
       <Tab eventKey={3} title="Pesquisar">
+        <hr className="hr" />
         Aqui será o formulário de pesquisa
       </Tab>
     </Tabs>

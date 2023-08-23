@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Table } from 'react-bootstrap';
 import { useOutletContext } from 'react-router-dom';
+import Loader from '../../components/ui/Loader/Loader';
+
 import API from '../../utils/API';
 import Dialog from '../../utils/Dialog';
 
@@ -9,15 +11,26 @@ const TabelaClientes = () => {
   const user = useOutletContext() || {}
 
   const [clientes, setClientes] = useState({})
+  const [showLoader, setShowLoader] = useState(true)
+
 
   useEffect(() => {
     API.fetchRequest('GET', '/cliente/all', null, user.token)
-      .then(data => setClientes(data))      
+      .then(data => {
+        if(data.errors){
+          Dialog.show('error', data.errors)
+          return
+        }
+        setClientes(data) 
+        setShowLoader(false)
+      
+      })      
       .catch(error => Dialog.show('error', 'Ocorreu um erro ao buscar os clientes!'))
   }, [])
 
   return (
     <>
+    {<Loader show={showLoader} message={"buscando clientes..."} />}
     <Table className="table table-striped">
       <thead>
         <tr>

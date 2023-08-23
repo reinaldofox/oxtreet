@@ -14,7 +14,7 @@
   min-height: 600px;
   min-width: 600px;
   background-color: #cbc4b9;
-  box-shadow: #11111a1a 0px 8px 24px, #11111a1a 0px 16px 24px, #11111a1a 0px 24px 60px;
+  /* box-shadow: #11111a1a 0px 8px 24px, #11111a1a 0px 16px 24px, #11111a1a 0px 24px 60px; */
 }
 
 input[type="radio"], input[type="checkbox"] {
