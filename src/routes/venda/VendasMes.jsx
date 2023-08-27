@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Dropdown, Form, Table } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
+import { Table } from 'react-bootstrap';
 import { AiFillStar } from 'react-icons/ai';
 import { BsListCheck } from 'react-icons/bs';
 import { FaRegChartBar } from 'react-icons/fa';
@@ -24,6 +23,8 @@ const VendaMes = () => {
       .then(data => {
         if (data.errors) {
           Dialog.show('error', data.errors)
+          console.error(data.stack)
+          return
         }
         setVendas(data)
         setShowLoader(false)
@@ -31,7 +32,14 @@ const VendaMes = () => {
       .catch(() => Dialog.show('error', 'Aconteceu um erro inesperado'))
     
     API.fetchRequest('GET', '/venda/sum', null, user.token)
-      .then(data => handleSumarioMensal(data))
+      .then(data => {
+        if (data.errors) {
+          Dialog.show('error', data.errors)
+          console.error(data.stack)
+          return
+        }
+        handleSumarioMensal(data)
+      })
       .catch(() => Dialog.show('error', 'Aconteceu um erro inesperado'))
   }, [])
 

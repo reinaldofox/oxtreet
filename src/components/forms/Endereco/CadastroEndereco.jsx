@@ -17,19 +17,15 @@ const CadastroEndereco = () => {
     uf: "",
   };
 
-  const buscaEnderecoCep = async () => {
-    // await API.fetchRequest(
-    //   "GET",
-    //   "https://viacep.com.br/ws/" + pessoa.endereco.cep + "/json/"
-    // )
-  
-    await API.fetchRequest(
-      "GET",
-      "https://brasilapi.com.br/api/cep/v2/" + pessoa.endereco.cep
-    )
-      .then((data) => preencheCamposEndereco(data))
-      // .catch(error => Dialog.show('info', 'Não foi possivel buscar o endereço pelo CEP'))
-      .catch((error) => console.log(error));
+  const buscaEnderecoCep = async () => {  
+    //  Busca cep pelo Brasil API
+    // await API.fetchRequest("GET", "https://brasilapi.com.br/api/cep/v2/" + pessoa.endereco.cep)
+      
+    await API.fetchRequest("GET", "https://viacep.com.br/ws/" + pessoa.endereco.cep + "/json/" )
+      .then(data => {
+        preencheCamposEndereco(data)
+      })
+      .catch(error => Dialog.show('info', 'Não foi possivel buscar o endereço pelo CEP'))
   };
 
   useEffect(() => {
@@ -40,13 +36,13 @@ const CadastroEndereco = () => {
 
   const preencheCamposEndereco = (data) => {
     enderecoCep = {
-      rua: data.street,
-      numero: "",
-      bairro: data.neighborhood,
+      rua: data.logradouro,
+      bairro: data.bairro,
       cep: data.cep,
+      cidade: data.localidade,
+      uf: data.uf,
+      numero: "",
       complemento: "",
-      cidade: data.city,
-      uf: data.state,
       info: "",
     };
     dispatch({
@@ -60,7 +56,7 @@ const CadastroEndereco = () => {
     <>
       <Form>       
         <Row className="mb-3">
-          <Col xs={1}>
+          <Col xs={1}>          
             <Form.Label>CEP</Form.Label>
             <Form.Control
               value={pessoa.endereco?.cep}

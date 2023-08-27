@@ -26,7 +26,7 @@ const VendaRegister = () => {
   const resultProdRef = useRef(null)
 
   let emptyVenda = {
-    clienteId: null, canal: '', data: '', formaPgto: '', info: '',
+    clienteId: null, vendedorId: 8, canal: '', data: '', formaPgto: '', info: '',
     qtdItens: 0, valor: 0, cliente: {}, produtos: []
   }
   const [venda, setVenda] = useState({ ...emptyVenda })
@@ -207,6 +207,11 @@ const VendaRegister = () => {
       setShowLoader(true)
       API.fetchRequest('POST', '/venda/create', venda, user.token)
         .then(data => {
+          if (data.errors) {
+            Dialog.show('error', data.errors)
+            console.error(data.stack)
+            rerurn
+          }
           setShowLoader(false)
           resetStates()
           Dialog.show('success', 'Venda realizada com sucesso!')
@@ -226,7 +231,6 @@ const VendaRegister = () => {
   } 
 
   const setData = (data) => {
-    debugger
     let hoje = new Date().getTime()
     let dv = new Date(data).getTime()
     if (dv > hoje) 

@@ -12,8 +12,8 @@
 .nav_menu span, .nav_menu a {
   font-family: Comfortaa;
   color: #716464;
-  font-size: 1.2em;
-  line-height: 1.2em;
+  font-size: 16px;
+  line-height: 16px;
   font-weight: bolder;
   text-shadow: 0 0 1px #8c8b8b; 
 }

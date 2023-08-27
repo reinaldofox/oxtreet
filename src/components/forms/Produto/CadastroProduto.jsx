@@ -134,7 +134,13 @@ const CadastroProduto = () => {
   
   const loadFornecedores = async () => {
     await API.fetchRequest('GET', '/fornecedor/all', null, user.token )
-      .then(data => setFornecedores(data))
+      .then(data => {
+        if (data.errors) {
+          Dialog.show('error', data.errors)
+          console.error(data.stack)
+        }
+        setFornecedores(data)
+      })
       .catch(error => {
         console.error(error)
         Dialog.show('error', 'Deu erro no CadastroProduto:loadFornecedores')
@@ -148,6 +154,7 @@ const CadastroProduto = () => {
       .then(data => {
         if (data.errors) {
           Dialog.show('error', data.errors)
+          console.error(data.stack)
           setShowLoader(false)
           return
         }

@@ -17,6 +17,7 @@ const TabelaFornecedores = () => {
       .then(data => {
         if(data.errors) {
           Dialog.show('error', data.errors)
+          console.error(data.stack)
           return
         }
         setFornecedores(data)

@@ -17,6 +17,7 @@ const Login = (props) => {
       .then(data => {
         if (data.errors) {
           Dialog.show('error', data.errors)
+          console.error(data.stack)
           return
         }
         storeUser(data)

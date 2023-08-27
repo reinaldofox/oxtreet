@@ -30,7 +30,14 @@ const Administrativo = () => {
     if(cores !== '') {
       const colors = cores.includes(',') ? cores?.split(',').map(c => ({cor: c.trim()})) : [{cor: cores.trim()}]
       await API.fetchRequest('POST', '/admin/cor/', colors, user.token)
-      .then(data => setCoresBD(data))
+        .then(data => {
+          if (data.errors) {
+            Dialog.show('error', data.errors)
+            console.error(data.stack)
+            return
+          }
+          setCoresBD(data)
+        })
       .catch(error => console.log('TRATAR ESSE ERRO', error))  
     }
   }
@@ -38,7 +45,14 @@ const Administrativo = () => {
   const getCores = async () => {
     try {
       await API.fetchRequest("GET", '/admin/cor', null, user.token)
-      .then(data => setCoresBD(data))
+        .then(data => {
+          if (data.errors) {
+            Dialog.show('error', data.errors)
+            console.error(data.stack)
+            return
+          }
+        setCoresBD(data)
+      })
       .catch(error => console.log('erro', error))
     } catch (error) {
       alert("deu pau a linha 71", error)
@@ -50,15 +64,29 @@ const Administrativo = () => {
     if(tamanhos !== ''){
       const sizes = tamanhos.includes(',') ? tamanhos?.split(',').map(t => t.trim()) : [{ tamanho: tamanhos.trim() }]
       await API.fetchRequest('POST', '/admin/tamanho/', sizes, user.token)
-      .then(data => setCoresBD(data))
-      .catch(error => console.log('TRATAR ESSE ERRO', error))
+      .then(data => {
+        if (data.errors) {
+          Dialog.show('error', data.errors)
+          console.error(data.stack)
+          return
+        }
+        setCoresBD(data)
+      })
+      .catch(error => console.log('erro', error))
     }    
   }
 
   const getTamanhos = async () => {
     await API.fetchRequest('GET', '/admin/tamanho', null, user.token)
-    .then(data => setTamanhosBD(data))
-    .catch(error => console.log('TRATAR ESSE ERRO', error))
+      .then(data => {
+        if (data.errors) {
+          Dialog.show('error', data.errors)
+          console.error(data.stack)
+          return
+        }
+        setTamanhosBD(data)
+      })
+    .catch(error => console.log('erro', error))
   }
 
   const isValidDespesa = () => {
@@ -77,6 +105,7 @@ const Administrativo = () => {
         setShowLoader(false)
         if (data.error) {
           Dialog.show('error', data.error)
+          console.error(data.stack)
           return
         }
         setDespesa(emptyDespesa)
@@ -88,7 +117,14 @@ const Administrativo = () => {
 
   const getListaDespesa = async () => {
     await API.fetchRequest('GET', '/admin/despesa', null, user.token)
-    .then(data => setListDespesa(data))
+    .then(data => {
+      if (data.errors) {
+        Dialog.show('error', data.errors)
+        console.error(data.stack)
+        return
+      }
+      setListDespesa(data)
+    })
     .catch(error => Dialog.show('error', 'Ocorreu um erro ao buscar as despesas!'))
   }
 

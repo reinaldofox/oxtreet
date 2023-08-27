@@ -26,6 +26,7 @@ const Cliente = () => {
         debugger
         if (data.errors) {
           Dialog.show('error', data.errors)
+          console.error(data.stack)
           return
         }
         Dialog.show("success", "Cadastro efetuado com sucesso!");

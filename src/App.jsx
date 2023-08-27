@@ -47,13 +47,15 @@ const App = () => {
   }
 
   const loadAppValues = async () => {
-    try {
-      const appvalues = await API.fetchRequest( 'GET', '/app/load/')
+    const appvalues = await API.fetchRequest('GET', '/app/load/')
+    .then(data => {
+      if (data.errors) {
+        Dialog.show('error', data.errors)
+        console.error(data.stack)
+      }
       localStorage.setItem('appvalues', JSON.stringify(appvalues))   
-    } catch (error) {
-      console.error(error)
-      Dialog.show('error')
-    }    
+    })
+    .catch(error =>  console.log('error', error))
   }
   
   useEffect(() => {

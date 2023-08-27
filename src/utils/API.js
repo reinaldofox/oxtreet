@@ -1,10 +1,10 @@
+// let API_URL = "https://api.oxtreetbh.shop/"
 let API_URL = "http://localhost:3001"
 
 class API {
 
-  requestFactory = (method, body, params, token) => {
-    baseUrl = 'http://localhost:3001'
-    params = ''
+  requestFactory = (method, body, token) => {
+    baseUrl = "http://localhost:3001"
     return {
       method,
       mode: 'cors',
@@ -42,7 +42,8 @@ class API {
       .then(res => {
         if (res.status == 401) {
           localStorage.removeItem('userSession')
-          location.href('/')
+          // window.location.href('/')
+          return res.json({ errors: ["Não autorizado!"] })
         }
         return res.json()
       })
