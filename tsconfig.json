@@ -1,44 +1,22 @@
-// {
-//   "compilerOptions": {
-//     "target": "ESNext",
-//     "lib": ["esnext"],
-//     "allowJs": false,
-//     "skipLibCheck": false,
-//     "esModuleInterop": false,
-//     "allowSyntheticDefaultImports": true,
-//     "strict": true,
-//     "forceConsistentCasingInFileNames": true,
-//     "noFallthroughCasesInSwitch": true,
-//     "module": "esnext",
-//     "moduleResolution": "node",
-//     "resolveJsonModule": true,
-//     "isolatedModules": true,
-//     "noEmit": true,
-//     "outDir": "./built",
-//   },
-//   "include": ["src"]
-// }
-
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "allowJs": true,
-    "removeComments": true,
-    "resolveJsonModule": true,
-    "typeRoots": ["./node_modules/@types"],
-    "sourceMap": true,
-    "outDir": "build",
+    "target": "ESNext",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "types": ["vite/client", "vite-plugin-svgr/client"],
+    "allowJs": false,
+    "skipLibCheck": false,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": true,
     "strict": true,
-    "lib": ["esnext"],
-    "baseUrl": ".",
     "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "moduleResolution": "Node",
-    "skipLibCheck": true
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  // "include": ["src"]
+  "include": ["**/*"]
 }
