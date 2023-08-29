@@ -209,7 +209,7 @@ const VendaRegister = () => {
         .then(data => {
           if (data.errors) {
             Dialog.show('error', data.errors)
-            console.error(data.stack)
+            console.log(data.stack)
             rerurn
           }
           setShowLoader(false)

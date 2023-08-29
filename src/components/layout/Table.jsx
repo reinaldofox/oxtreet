@@ -44,7 +44,7 @@ const TableProdutos = () => {
       .then(data => {
         if (data.errors) {
           Dialog.show('error', data.errors)
-          console.error(data.stack)
+          console.log(data.stack)
         }
         setShowLoader(false)
         setProdutos(data)

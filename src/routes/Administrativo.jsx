@@ -33,7 +33,7 @@ const Administrativo = () => {
         .then(data => {
           if (data.errors) {
             Dialog.show('error', data.errors)
-            console.error(data.stack)
+            console.log(data.stack)
             return
           }
           setCoresBD(data)
@@ -48,7 +48,7 @@ const Administrativo = () => {
         .then(data => {
           if (data.errors) {
             Dialog.show('error', data.errors)
-            console.error(data.stack)
+            console.log(data.stack)
             return
           }
         setCoresBD(data)
@@ -67,7 +67,7 @@ const Administrativo = () => {
       .then(data => {
         if (data.errors) {
           Dialog.show('error', data.errors)
-          console.error(data.stack)
+          console.log(data.stack)
           return
         }
         setCoresBD(data)
@@ -81,7 +81,7 @@ const Administrativo = () => {
       .then(data => {
         if (data.errors) {
           Dialog.show('error', data.errors)
-          console.error(data.stack)
+          console.log(data.stack)
           return
         }
         setTamanhosBD(data)
@@ -105,7 +105,7 @@ const Administrativo = () => {
         setShowLoader(false)
         if (data.error) {
           Dialog.show('error', data.error)
-          console.error(data.stack)
+          console.log(data.stack)
           return
         }
         setDespesa(emptyDespesa)
@@ -120,7 +120,7 @@ const Administrativo = () => {
     .then(data => {
       if (data.errors) {
         Dialog.show('error', data.errors)
-        console.error(data.stack)
+        console.log(data.stack)
         return
       }
       setListDespesa(data)

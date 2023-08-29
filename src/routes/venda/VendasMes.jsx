@@ -23,7 +23,7 @@ const VendaMes = () => {
       .then(data => {
         if (data.errors) {
           Dialog.show('error', data.errors)
-          console.error(data.stack)
+          console.log(data.stack)
           return
         }
         setVendas(data)
@@ -35,7 +35,7 @@ const VendaMes = () => {
       .then(data => {
         if (data.errors) {
           Dialog.show('error', data.errors)
-          console.error(data.stack)
+          console.log(data.stack)
           return
         }
         handleSumarioMensal(data)

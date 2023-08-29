@@ -1,4 +1,4 @@
-// let API_URL = "https://api.oxtreetbh.shop/"
+// let API_URL = "https://api.oxtreetbh.shop"
 let API_URL = "http://localhost:3001"
 
 class API {
@@ -47,7 +47,11 @@ class API {
         }
         return res.json()
       })
-      .catch(error => { throw error })
+      .catch(error => {
+        throw ({
+          errors: ['Ocorreu um erro ao conectar ao servidor'], stack: error
+        })
+      })
   }
 }
 export default new API()

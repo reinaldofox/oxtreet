@@ -17,12 +17,12 @@ const Login = (props) => {
       .then(data => {
         if (data.errors) {
           Dialog.show('error', data.errors)
-          console.error(data.stack)
+          console.log(data.stack)
           return
         }
         storeUser(data)
       })
-    .catch(error => console.log('error', error))
+    .catch(error => console.log('erro:', error))
   }  
 
   return (

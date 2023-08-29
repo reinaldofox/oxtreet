@@ -47,13 +47,17 @@ const App = () => {
   }
 
   const loadAppValues = async () => {
-    const appvalues = await API.fetchRequest('GET', '/app/load/')
+    await API.fetchRequest('GET', '/app/load/')
     .then(data => {
       if (data.errors) {
         Dialog.show('error', data.errors)
-        console.error(data.stack)
+        console.log(data.stack)
+        return
       }
-      localStorage.setItem('appvalues', JSON.stringify(appvalues))   
+      
+      if (data.cores.length > 0 || data.tamanhos.length > 0)
+        localStorage.setItem('appvalues', JSON.stringify(data)) 
+      
     })
     .catch(error =>  console.log('error', error))
   }
